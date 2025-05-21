@@ -4,6 +4,7 @@ import Login from './components/Login';
 import HSTDashboard from './components/HSTDashboard';
 import WardenDashboard from './components/WardenDashboard';
 import LocationForm from './components/LocationForm';
+import './global.css';
 
 function App() {
   return (

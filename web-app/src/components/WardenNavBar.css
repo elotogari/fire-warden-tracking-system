@@ -1,0 +1,47 @@
+.warden-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #5A3467;
+  padding: 40px 60px;
+  color: white;
+  font-family: 'Inria Sans', sans-serif;
+}
+
+.nav-left {
+  display: flex;
+  gap: 60px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 30px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.nav-right {
+  display: flex;
+}
+
+.logout-button {
+  background-color: #fff;
+  color: #5A3467;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'Inria Sans', sans-serif;
+  font-size: 30px;
+}
+
+.logout-button:hover {
+  background-color: #e0e0e0;
+}

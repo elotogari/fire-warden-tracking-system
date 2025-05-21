@@ -1,9 +1,16 @@
 import React from 'react';
+import WardenNavBar from './WardenNavBar';
 
-export default function WardenDashboard() {
+const WardenDashboard = () => {
   return (
-    <div>
-      <h2>Fire Warden Dashboard</h2>
-    </div>
+    <>
+      <WardenNavBar />
+      <div style={{ padding: '20px' }}>
+        <h2>Today's Logs</h2>
+        {/* Table will go here */}
+      </div>
+    </>
   );
-}
+};
+
+export default WardenDashboard;

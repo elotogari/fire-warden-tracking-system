@@ -1,10 +1,16 @@
 import React from 'react';
+import WardenNavBar from './WardenNavBar';
 
-export default function LocationForm() {
+const LocationForm = () => {
   return (
-    <div>
-      <h2>Fire Warden Location Logging Form</h2>
-      <p>This is the location form placeholder.</p>
-    </div>
+    <>
+      <WardenNavBar />
+      <div style={{ padding: '20px' }}>
+        <h2>Fire Warden Location Logging Form</h2>
+        {/* Table will go here */}
+      </div>
+    </>
   );
-}
+};
+
+export default LocationForm;
