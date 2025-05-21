@@ -1,14 +1,42 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Username:', username);
-    console.log('Password:', password);
+
+    try {
+      const response = await fetch('http://localhost:4000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        setError(data.message || 'Login failed');
+        return;
+      }
+
+      const data = await response.json();
+
+      if (data.role === 'warden') {
+        navigate('/warden-dashboard');
+      } else if (data.role === 'hstech') {
+        navigate('/hst-dashboard');
+      } else {
+        setError('Unknown user role');
+      }
+    } catch (err) {
+      setError('Server error. Please try again later.');
+      console.error(err);
+    }
   };
 
   return (
@@ -21,20 +49,23 @@ const Login = () => {
         <div className="right-content">
           <h2 className="login-heading">Login</h2>
           <div className="form-wrapper">
-            <form className="login-form" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="login-form">
               <input
                 type="text"
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                required
               />
               <input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <button type="submit">Sign In</button>
+              {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
             </form>
           </div>
         </div>
