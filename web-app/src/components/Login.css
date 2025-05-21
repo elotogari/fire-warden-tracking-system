@@ -1,7 +1,7 @@
 .login-container {
   display: flex;
   height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: 'Inria Sans', sans-serif;
 }
 
 .left-panel {
@@ -14,14 +14,14 @@
 }
 
 .left-panel h1 {
-  color: #5E2BFF;
-  font-size: 28px;
+  color: #5A3467;
+  font-size: 40px;
   text-align: center;
 }
 
 .right-panel {
   flex: 1;
-  background-color: #5E2BFF;
+  background-color: #5A3467;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,15 +37,15 @@
 
 .login-heading {
   color: #fff;
-  font-size: 32px;
+  font-size: 40px;
 }
 
 .form-wrapper {
   background-color: #fff;
-  padding: 30px;
+  padding: 40px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  width: 300px;
+  width: 400px;
 }
 
 .login-form {
@@ -54,17 +54,22 @@
   gap: 15px;
 }
 
+.login-form input,
+.login-form button {
+  font-family: 'Inria Sans', sans-serif;
+}
+
 .login-form input {
   padding: 10px;
-  font-size: 16px;
+  font-size: 20px;
   border-radius: 4px;
   border: 1px solid #ccc;
 }
 
 .login-form button {
   padding: 10px;
-  font-size: 16px;
-  background-color: #5E2BFF;
+  font-size: 20px;
+  background-color: #5A3467;
   color: #fff;
   border: none;
   border-radius: 4px;
