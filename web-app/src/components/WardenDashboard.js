@@ -6,7 +6,6 @@ const Dashboard = ({ user }) => {
     <>
       <WardenNavBar />
       <h1>Today's Logs</h1>
-      {/* Render a table or list of logs here */}
       <p>Welcome, {user.firstName} {user.lastName}</p>
       {/* other dashboard stuff */}
     </>

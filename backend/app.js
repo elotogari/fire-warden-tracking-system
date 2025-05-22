@@ -14,6 +14,6 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/locations', locationRoutes);
-app.use('/api/logs', logLocationRoutes);
+app.use('/api/loglocation', logLocationRoutes);
 
 module.exports = app;

@@ -2,22 +2,20 @@ const express = require('express');
 const router = express.Router();
 const { query, sql } = require('../database-connection');
 
-router.post('/logs', async (req, res) => {
+router.post('/', async (req, res) => {
   const { userId, locationId } = req.body;
-
-  const timestamp = new Date();
 
   if (!userId || !locationId) {
     return res.status(400).json({ message: 'userId and locationId are required' });
   }
 
   try {
-    const result = await query(
+    await query(
       `INSERT INTO fire_warden_logs (user_id, timestamp, location_id) 
        VALUES (@userId, @timestamp, @locationId)`,
       {
         userId: { type: sql.Int, value: userId },
-        timestamp: { type: sql.DateTime, value: timestamp },
+        timestamp: { type: sql.DateTime, value: new Date() },
         locationId: { type: sql.Int, value: locationId }
       }
     );

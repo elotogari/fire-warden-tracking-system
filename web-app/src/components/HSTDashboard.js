@@ -1,14 +1,13 @@
 import React from 'react';
 import HSTNavBar from './HSTNavBar';
 
-const HSTDashboard = () => {
+const HSTDashboard = ({ user }) => {
   return (
     <>
       <HSTNavBar />
-      <div style={{ padding: '20px' }}>
-        <h2>Health & Safety Team Dashboard</h2>
+      <h1>Today's Logs</h1>
+      <p>Welcome, {user.firstName} {user.lastName}</p>
         {/* Table will go here */}
-      </div>
     </>
   );
 };

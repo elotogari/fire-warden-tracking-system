@@ -27,13 +27,13 @@ const LocationForm = ({ user }) => {
     if (!selectedLocation) return alert('Please select a location');
 
     try {
-      const res = await fetch('http://localhost:4000/api/log-location', {
+      const res = await fetch('http://localhost:4000/api/loglocation', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          user_id: user.id,
-          location_id: selectedLocation,
-          timestamp: new Date().toISOString(),
+          userId: Number(user.id),
+          locationId: Number(selectedLocation),
+          // timestamp is handled server side
         }),
       });
 
