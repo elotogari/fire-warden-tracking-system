@@ -1,26 +1,64 @@
 import React, { useEffect, useState } from 'react';
 import WardenNavBar from './WardenNavBar';
 import './WardenDashboard.css';
+import EditLogModal from './EditLogModal';
 
 const WardenDashboard = ({ user }) => {
   const [logs, setLogs] = useState([]);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [logToEdit, setLogToEdit] = useState(null);
+  const [locations, setLocations] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const [logsRes, locsRes] = await Promise.all([
+        fetch('http://localhost:4000/api/today'),
+        fetch('http://localhost:4000/api/locations'),
+      ]);
+      const logsData = await logsRes.json();
+      const locsData = await locsRes.json();
+
+      setLogs(logsData);
+      setLocations(locsData);
+    } catch (err) {
+      console.error('Failed to fetch logs or locations:', err);
+    }
+  };
 
   useEffect(() => {
-    const fetchLogs = async () => {
-      try {
-        const res = await fetch('http://localhost:4000/api/today');
-        const data = await res.json();
-        setLogs(data);
-      } catch (err) {
-        console.error('Failed to fetch logs:', err);
-      }
-    };
-
-    fetchLogs();
+    fetchData();
   }, []);
 
   const handleEdit = (log) => {
-    alert(`Edit log ${log.id} (not implemented yet)`);
+    setLogToEdit(log);
+    setIsEditOpen(true);
+  };
+
+  const handleSaveEdit = async (updatedLog) => {
+    try {
+      const res = await fetch(`http://localhost:4000/api/loglocation/${updatedLog.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          location_id: updatedLog.location_id,
+          timestamp: updatedLog.timestamp,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        alert(data.message || 'Failed to update log');
+        return;
+      }
+
+      await fetchData();
+      setIsEditOpen(false);
+    } catch (err) {
+      console.error(err);
+      alert('Server error. Please try again later.');
+    }
   };
 
   const handleDelete = async (logId) => {
@@ -89,6 +127,14 @@ const WardenDashboard = ({ user }) => {
           </tbody>
         </table>
       </div>
+
+      <EditLogModal
+        isOpen={isEditOpen}
+        onClose={() => setIsEditOpen(false)}
+        log={logToEdit}
+        onSave={handleSaveEdit}
+        locations={locations}
+      />
     </>
   );
 };

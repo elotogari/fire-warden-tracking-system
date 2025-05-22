@@ -49,4 +49,28 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { location_id, timestamp } = req.body;
+
+  try {
+    await query(
+      `UPDATE fire_warden_logs
+       SET location_id = @location_id, timestamp = @timestamp
+       WHERE id = @id`,
+      {
+        id: { type: sql.Int, value: id },
+        location_id: { type: sql.Int, value: location_id },
+        timestamp: { type: sql.DateTime, value: new Date(timestamp) },
+      }
+    );
+
+    res.json({ message: 'Log updated successfully' });
+  } catch (err) {
+    console.error('Error updating log:', err);
+    res.status(500).json({ message: 'Server error while updating log' });
+  }
+});
+
+
 module.exports = router;
