@@ -27,4 +27,26 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  const logId = req.params.id;
+
+  try {
+    const result = await query(
+      `DELETE FROM fire_warden_logs WHERE id = @logId`,
+      {
+        logId: { type: sql.Int, value: logId }
+      }
+    );
+
+    if (result.rowsAffected[0] === 0) {
+      return res.status(404).json({ message: 'Log not found' });
+    }
+
+    res.json({ message: 'Log deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting log:', error);
+    res.status(500).json({ message: 'Server error while deleting log' });
+  }
+});
+
 module.exports = router;
