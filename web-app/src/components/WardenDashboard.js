@@ -1,16 +1,16 @@
 import React from 'react';
 import WardenNavBar from './WardenNavBar';
 
-const WardenDashboard = () => {
+const Dashboard = ({ user }) => {
   return (
     <>
       <WardenNavBar />
-      <div style={{ padding: '20px' }}>
-        <h2>Today's Logs</h2>
-        {/* Table will go here */}
-      </div>
+      <h1>Today's Logs</h1>
+      {/* Render a table or list of logs here */}
+      <p>Welcome, {user.firstName} {user.lastName}</p>
+      {/* other dashboard stuff */}
     </>
   );
 };
 
-export default WardenDashboard;
+export default Dashboard;

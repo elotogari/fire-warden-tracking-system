@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-const Login = () => {
+const Login = ({ setUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -18,14 +18,23 @@ const Login = () => {
         body: JSON.stringify({ username, password }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const data = await response.json();
         setError(data.message || 'Login failed');
         return;
       }
 
-      const data = await response.json();
+      // Save logged-in user info in global App state
+      setUser({
+        id: data.id,
+        role: data.role,
+        staffNumber: data.staffNumber,
+        firstName: data.firstName,
+        lastName: data.lastName,
+      });
 
+      // Navigate based on role
       if (data.role === 'warden') {
         navigate('/warden-dashboard');
       } else if (data.role === 'hstech') {
