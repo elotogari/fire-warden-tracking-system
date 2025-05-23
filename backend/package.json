@@ -9,7 +9,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"No tests yet\"",
-    "start": "node express-server.js"
+    "start": "node express-server.js",
+    "postinstall": "echo 'Building React app...' && cd web-app && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
