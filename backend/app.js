@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+
 const authRoutes = require('./routes/auth');
 const locationRoutes = require('./routes/locations');
 const logLocationRoutes = require('./routes/loglocation');
@@ -15,8 +16,10 @@ app.use('/api/today', todaysLogs);
 
 app.use(express.static(path.join(__dirname, 'web-app/build')));
 
+console.log('Serving React app from:', path.join(__dirname, 'web-app/build/index.html'));
+
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'web-app/build/index.html'));
+  res.sendFile(path.join(__dirname, 'web-app/build', 'index.html'));
 });
 
 module.exports = app;
